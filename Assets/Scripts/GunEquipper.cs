@@ -50,5 +50,5 @@ public class GunEquipper : MonoBehaviour
     public GameObject GetActiveWeapon()
    {
         return activeGun; //returns the active gun
-    }
+   }
 }
