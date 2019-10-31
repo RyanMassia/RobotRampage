@@ -22,6 +22,6 @@ public class Gun : MonoBehaviour
 
     protected void Fire()
     {
-
+        GetComponentInChildren<Animator>().Play("Fire"); // looks for the animator controller for pistol and plays fire animation
     }
 }
