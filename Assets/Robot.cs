@@ -10,10 +10,12 @@ public class Robot : MonoBehaviour
     public int range; //how far weapon can fire 
     public float fireRate; // firerate of missles
     public Transform missileFireSpot;
+    public Animator robot;
     UnityEngine.AI.NavMeshAgent agent;
     private Transform player; //tracks the player 
     private float timeLastFired; // cheaks when gun lasts 
     private bool isDead; // if bool is true robot dead
+
 
 
     // Start is called before the first frame update
@@ -45,6 +47,6 @@ public class Robot : MonoBehaviour
 
     private void fire()
     {
-        Debug.Log("Fire");
+        robot.Play("Fire");
     }
 }
