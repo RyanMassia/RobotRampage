@@ -7,6 +7,12 @@ public class Robot : MonoBehaviour
     [SerializeField]
     GameObject missileprefab;
     [SerializeField]
+    private AudioClip deathSound;
+    [SerializeField]
+    private AudioClip fireSound;
+    [SerializeField]
+    private AudioClip weakHitSound;
+    [SerializeField]
     private string robotType; // which type of robot ()
     public int health; // how much damage can take 
     public int range; //how far weapon can fire 
@@ -43,15 +49,16 @@ public class Robot : MonoBehaviour
         if (Vector3.Distance(transform.position, player.position) < range && Time.time - timeLastFired > fireRate)
         {     // 6     
             timeLastFired = Time.time;
-            fire();
+            Fire();
         }
     }
 
-    private void fire()
+    private void Fire()
     { GameObject missile = Instantiate(missileprefab);
         missile.transform.position = missileFireSpot.transform.position;
         missile.transform.rotation = missileFireSpot.transform.rotation;
         robot.Play("Fire");
+        GetComponent<AudioSource>().PlayOneShot(fireSound);
     }
 
     //1 when player dies play death animation before robot
@@ -68,6 +75,11 @@ public class Robot : MonoBehaviour
             isDead = true;
             robot.Play("Die");
             StartCoroutine("DestroyRobot");
+            GetComponent<AudioSource>().PlayOneShot(deathSound);
+        }
+        else
+        {
+            GetComponent<AudioSource>().PlayOneShot(weakHitSound);
         }
     }
     // 2 
