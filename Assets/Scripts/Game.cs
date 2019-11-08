@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class Game : MonoBehaviour
     public int score;
     public int waveCountdown;
     public bool isGameOver;
+    public GameObject gameOverPanel;
 
     // Start is called before the first frame update
     // 1 sets singleton so only 1 instance of game can exist, then calls spawn robots
@@ -79,6 +82,41 @@ public class Game : MonoBehaviour
             gameUI.SetScoreText(score);
         }
     }
+
+    // 1 
+    public void OnGUI()
+    {
+        if (isGameOver && Cursor.visible == false)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+    // 2 
+    public void GameOver()
+    {
+        isGameOver = true;
+        Time.timeScale = 0;
+        player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<CharacterController>().enabled = false;
+        gameOverPanel.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(Constants.SceneBattle);
+        gameOverPanel.SetActive(true);
+    }
+    // 4 
+    public void Exit()
+    {
+        Application.Quit();
+    }
+    // 5 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(Constants.SceneMenu);
+    } 
 
     // Update is called once per frame 
     void Update()
