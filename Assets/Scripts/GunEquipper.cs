@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GunEquipper : MonoBehaviour
 {
+    [SerializeField] Ammo ammo;
     [SerializeField] GameUI gameUI;
     public static string activeWeaponType;
     public GameObject pistol; // pistol gameobject
@@ -26,6 +27,7 @@ public class GunEquipper : MonoBehaviour
         shotgun.SetActive(false);
         weapon.SetActive(true);
         activeGun = weapon;
+        gameUI.SetAmmoText(ammo.GetAmmo(activeGun.tag));
     }
 
     // Update is called once per frame
